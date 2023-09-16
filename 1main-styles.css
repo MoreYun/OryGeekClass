@@ -1,0 +1,588 @@
+body {
+    font-family: Arial,  sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('background/nvUtgti3hf4VMIrg_0.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.main-container {
+    height: 100vh;
+    display: flex;
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(180, 180, 180, 0.63); /* Use a higher alpha value (e.g., 0.9) for more opacity */
+
+}
+
+/* 侧边栏 */
+.sidebar {
+    width: 100px;
+    height: 200%;
+    background-color: rgba(241, 241, 241, 0.7); 
+    display:block;
+    position: fixed;
+}
+
+
+
+.menu-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+
+
+/* 侧栏地板设置 */
+.setting-button {
+    margin-bottom: 63vh;
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    background-image: url('icon/settings.ico'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-color: transparent; 
+    border: none;
+    cursor: pointer;
+}
+/* 按钮限框 */
+.button-sider {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    background-image: url('icon/menu_navigation_icon.ico'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-color: transparent; 
+    border: none;
+    cursor: pointer;
+}
+
+.button-sider-2 {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    background-image: url('icon/pen_icon.ico');
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* 板书页面样式 */
+.button-white {    
+    display: flex;
+    width: 20%;
+    height: 40%;
+    margin: 2vh;
+    border-radius:30px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    position:relative;
+    top:1%;
+    left: 1%;
+    transition: background-color 0.3s ease;
+    background-image: url('icon/new-statistics.ico'); 
+    background-size: 30vh;
+    background-repeat: no-repeat;
+    background-position-y: 5vh; 
+    background-position-x: 15%; 
+    
+}
+.button-printOn {    
+    display: flex;
+    width: 20%;
+    height: 40%;
+    margin: 2vh;
+    border-radius:30px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    position:relative;
+    top:1%;
+    left: 1%;
+    transition: background-color 0.3s ease;
+    background-image: url('icon/new-statistics.ico'); 
+    background-size: 30vh;
+    background-repeat: no-repeat;
+    background-position-y: 5vh; 
+    background-position-x: 15%; 
+    
+}
+.button-text{
+    font-size: 15vh;
+    margin-top: 5vh; 
+    margin-left: 85%;
+}
+
+.white-page {
+    display: flex;
+    width: 230vh;
+    flex-direction: column;
+    height: 100vh;
+    background-color: rgba(241, 241, 241, 0.87);
+    background-size:cover;
+    border-radius: 4vh;
+}
+/* 统计页面样式 */
+.excel-page {
+    display: flex;
+    width: 230vh;
+    flex-direction: column;
+    height: 100vh;
+    background-color: rgba(241, 241, 241, 0.87);
+    background-size:cover;
+    border-radius: 25px;
+}
+
+.excel-header {
+    font-size: 30px;
+    margin-top: 5px;
+    margin-left: 35px;
+}
+
+
+.content {
+    display: flex;
+    position: fixed;
+    margin-left: -10px;
+    margin-bottom: 2%;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    left: 130px;
+    background-color: rgba(241, 241, 241, 0.7);
+    background-size: cover;
+    border-top-left-radius: 5vh;
+    
+}
+.tab-content.active{
+    padding: 2vh;
+    display: flex; 
+    
+}
+
+.tab-content{
+    padding: 2vh;
+    display: flex; 
+}
+
+.aboutpage-content.active{
+    padding: 2vh;
+    display: flex; 
+}
+
+.aboutpage-content{
+    padding: 2vh;
+    display: flex; 
+}
+/* 关于页面的侧边栏样式 */
+.about-sidebar {
+    position: absolute;
+    left:30%;
+    top: 15%;
+    width: 180px;
+    height: 40px;
+    background-color:rgba(170, 170, 170, 0.87);
+    padding: 15px;
+    border-radius: 25px;
+    display: flex;
+    justify-content:center;
+}
+
+/* 关于页内侧边栏按钮控制 */
+.button-sider2 {
+    font-size: 18px;
+    height: 20px;
+    width: 50px;
+    border-radius: 25px;
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-color: transparent; 
+    border: none;
+    cursor: pointer;
+    justify-content:center;
+}
+
+
+
+/*关于页侧栏切换按钮 */
+.menu-item {
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .menu-item:hover {
+        background-color: #ddd;
+    }
+
+    .menu-item.active {
+        background-color: #555;
+        color: #fff;
+    }
+
+
+.menu-item2 {
+    padding: 2vh;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 15px;
+}
+
+    .menu-item2:hover {
+        background-color: #ddd;
+    }
+
+    .menu-item2.active {
+        background-color: #555;
+        color: #fff;
+        border-radius: 15px;
+    }
+
+.about-menu-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+
+.about-menu-item:hover {
+    background-color: #ddd;
+}
+
+.about-menu-item.active {
+    background-color: #555;
+    color: #fff;
+}
+
+/* 关于页面的内容样式 */
+.about-content {
+    margin-left: 3vh;
+    margin-bottom: 3vh;
+    margin-right: 3vh;
+    padding: 20px;
+    height: 120%;
+    background-color: rgba(206, 205, 205, 0.63);
+    background-size: cover;
+    border-radius:5vh;
+
+}
+
+
+
+/* 关于页面样式 */
+.about-page {
+    display: flex;
+    width: 230vh;
+    flex-direction: column;
+    height: 100vh;
+    background-color: rgba(241, 241, 241, 0.87);
+    background-size:cover;
+    border-radius: 4vh;
+}
+
+.about-header {
+    font-size: 30px;
+    margin-top: 5px;
+    margin-left: 35px;
+}
+
+.icon-container img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.version-info,
+.open-source-info {
+    font-size: 3vh;
+    margin-bottom: 10px;
+}
+
+
+.button-new {    
+    display: flex;
+    width: 180px;
+    height: 50px;
+    margin: 2%;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    position:fixed;
+    top:75px;
+    left: 60%;
+    transition: background-color 0.3s ease;
+
+}
+
+    .button-new:hover {
+        background-color: #ffffff56;
+    }
+.button-text{
+    font-size: 20px;
+    margin-top: 8%; 
+    margin-left: 5%;
+}
+.button-excel {
+    display: flex;
+    width: 180px;
+    height: 50px;
+    margin: 2%;
+    font-size: 10vh;
+    border-radius: 20px;
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    position:fixed;
+    top:75px;
+    left: 75%;
+    transition: background-color 0.3s ease;
+}
+    
+    .button-excel:hover {
+            background-color:#ffffff56;
+    }
+
+/* 页面的内容样式 */
+.excel-content {
+    margin-left: 2%;
+    margin-bottom: 0%;
+    margin-right: 2%;
+    padding: 20px;
+    height: 100%;
+    background-color: rgba(206, 205, 205, 0.63);
+    background-size: cover;
+    border-radius:25px;
+    border: 1px solid #ccc; /* 平行分割线样式 */
+    display: table;
+    width: 90%;
+    height: 100%;
+
+}
+
+/* 页面的内容样式 */
+.excel-title {
+    margin-left: 2%;
+    margin-bottom: 0%;
+    margin-right: 2%;
+    padding: 20px;
+    background-color: rgba(206, 205, 205, 0.63);
+    background-size: cover;
+    border-radius:25px;
+    border: 1px solid #ccc; /* 平行分割线样式 */
+    display: table;
+    width: 90%;
+    height: 5%;
+
+}
+
+.excel-row {
+    display: table-row;
+}
+
+.excel-cell {
+    display: table-cell;
+    padding: 5px;
+    border-bottom: 1px solid #000000; /* 平行分割线样式 */
+    
+}
+
+.excel-cell.checkbox {
+    width: 2%; /* 控制复选框列宽 */
+}
+
+.excel-cell.filename {
+    width: 20%; /* 控制文件名称列宽 */
+    font-size: 15px;
+}
+
+.excel-cell.created-at {
+    width: 20%; /* 控制创建时间列宽 */
+    font-size: 15px;
+}
+
+/* 添加竖直分割线 */
+.excel-row .excel-cell:not(:last-child) {
+    border-right: 1px solid #000000;
+}
+    /* 统计页窗口内联样式 */
+.new-window {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f1f1f1;
+    padding: 20px;
+    min-width: 300px;
+    min-height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+    .new-window.show {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+/* 窗口头 */
+.window-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    cursor: move;
+}
+
+/* 排序类型选择 */
+.window-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 统计页中按钮通用样式 */
+.window-button {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 25px;
+    background-color: #eef1f4;
+    border: none;
+}
+
+/* 数据输入框 */
+.input-container {
+    margin: 0 auto;
+}
+
+/* 大小调整 */
+.resize-handle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    background-color: #ddd;
+    cursor: se-resize;
+}
+
+/* 展示结果框 */
+.results {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+/* 语言切换开关样式 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* 原有样式 */
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+#homepage {
+    display: block;
+    
+}
+
+#homepage2 {
+    display: none;
+}
+
+#homepage3 {
+    display: none;
+}
+
+#aboutpage{
+    display: block;
+}
+
+#aboutpage2{
+    display: none;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>极课</title>
+    <link rel="stylesheet" type="text/css" href="1main-styles.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="menu-item active" onclick="changeTab(1)">
+                <button class="button-sider"></button>
+            </div>
+            <div class="menu-item" onclick="changeTab(2)">
+                <button class="button-sider-2"></button>
+            </div>
+            <div class="menu-item" onclick="changeTab(3)">
+                <div class="setting-button" ></div>
+            </div>
+        </div>
+        <div class="content">
+            <div id="homepage" class="tab-content" active>
+                <div class="white-page">
+
+                    <button class="button-white" onclick="openNewWhite()">
+                    <div class="button-text">新建板书</div>
+                </button>
+                <button class="button-printOn" onclick="printOn()">
+                    <div class="button-text">屏幕书写</div>
+                </button>
+                </div>
+                  
+            </div>
+
+
+
+            <div id="homepage2" class="tab-content">
+                <div class="excel-page">
+                    <div class="excel-header">
+                        <h1>统计</h1>
+                        <button class="button-new" onclick="openNewWindow()">
+                            <div class="button-text">新建统计</div>
+                        </button>
+                        <button class="button-excel" onclick="exportToExcel()">
+                            <div class="button-text">导出为Excel</div>
+                        </button>
+                    </div>  
+                 
+                    
+                    <div class="excel-title">
+                        <div class="excel-row">
+                            <div class="excel-cell checkbox"></div>
+                            <div class="excel-cell filename">文件名称</div>
+                            <div class="excel-cell created-at">创建时间</div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+            <div id="homepage3" class="tab-content">
+                <div class="about-page">
+                    
+                    <div id="aboutpage" class="aboutpage-content active">
+                        <div class="about-header">
+                            <h1>关于/About</h1>
+                        </div>
+                        <div class="about-content">
+                            <div class="icon-container">
+                                <!-- 添加应用图标 -->
+                                <img src="icon/app_icon.png" alt="App Icon">
+                            </div>
+                            <h1>多云极课</h1>
+                            <div class="version-info">
+                                <p>版本号：1.023.0-Alpha</p>
+                            </div>
+                            <div class="open-source-info">
+                                <p>开源代码使用情况：暂无</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="aboutpage2" class="aboutpage-content">
+                        <div class="about-header">
+                            <h1>设置/Settings</h1>
+                        </div>
+                        <div class="about-content">
+                            <div class="version-info">
+                                <div class="language-switch">
+                                <label class="switch">
+                                  <input type="checkbox" id="toggle">
+                                  <span class="slider round"></span>
+                                </label>
+                                <span>中文</span>
+                                <span>English</span>
+                              </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    
+    <script src="1main-script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+</body>
+</html>

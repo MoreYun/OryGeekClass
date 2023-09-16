@@ -1,0 +1,443 @@
+/* 页面整体样式 */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#whiteboard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+/* 绘图区域样式 */
+#canvas {
+    border: 1px solid black;
+    cursor: crosshair;
+    position: fixed;
+}
+
+/* 控制条样式 */
+#controls {
+    position: fixed;
+    bottom: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#tools-container {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #a3cef1;
+    padding: 10px;
+    margin-bottom: 10px;
+    animation: fade-in-out 0.5s ease-in-out;
+}
+
+.tool-button {
+    margin: 0 5px;
+    width: 60px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .tool-button:hover {
+        background-color: #0056b3;
+    }
+
+    .tool-button:active {
+        background-color: #003d80;
+    }
+
+#tools-container2 {
+    position: fixed;
+    bottom: 10px;
+    right: 120px;
+    transform: translateX(50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #6096ba;
+    padding: 10px;
+    margin-bottom: 10px;
+    animation: fade-in-out 0.5s ease-in-out;
+}
+
+#tools-container3 {
+    position: fixed;
+    bottom: 10px;
+    transform: translateX(50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #6096ba;
+    padding: 10px;
+    margin-bottom: 10px;
+    animation: fade-in-out 0.5s ease-in-out;
+}
+
+#tools-container4 {
+    position: fixed;
+    right: 1%;
+    bottom: 20%;
+    width: 20px;
+    transform: translateX(50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background-color: #6096ba23;
+    padding: 10px;
+    margin-bottom: 10px;
+    animation: fade-in-out 0.5s ease-in-out;
+}
+
+#background-container {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    animation: fade-in 0.5s ease-in-out;
+}
+
+#toggleBackground {
+    margin: 0 5px;
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    position: relative;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/color_fill_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+#canvasList {
+    margin: 0 5px;
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    position: relative;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/layers_layer_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+button.penColor {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 0 5px;
+    border: groove;
+    cursor: pointer;
+    background-color: forestgreen;
+    animation: fade-in 0.5s ease-in-out;
+}
+
+#penButton {
+    margin: 0 5px;
+    width: 60px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    position: relative;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/pen_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+#penSubMenu {
+    display: none;
+    position: absolute;
+    bottom: 110%;
+    right: 60%;
+    transform: translateX(50%);
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    animation: fade-in-down 0.5s ease-in-out;
+}
+
+    #penSubMenu.open {
+        display: block;
+    }
+
+.slider {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+    .slider input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 10px;
+        border-radius: 5px;
+        background: #ddd;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: opacity 0.2s;
+        transition: opacity 0.2s;
+    }
+
+        .slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+        }
+
+        .slider input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border: none;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+        }
+
+        .slider input[type="range"]:focus {
+            outline: none;
+            opacity: 1;
+        }
+
+#eraserButton {
+    margin: 0 5px;
+    flex: 1;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/eraser_regular_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+button#clearCanvasButton {
+    position: relative;
+    left: 30%;
+    margin: 0 5px;
+    width: 60px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+}
+
+#eraserSubMenu {
+    display: none;
+    position: absolute;
+    bottom: auto;
+    bottom: 110%;
+    right: 40%;
+    transform: translateX(50%);
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    animation: fade-in-down 0.5s ease-in-out;
+}
+
+.redoButton {
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/redo_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+.undoButton {
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/undo_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+.moveButton {
+    margin: 0 5px;
+    width: 60px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/move_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+.leftButton {
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/rewind_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+.rightButton {
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/forward_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+.menuButton {
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/menu_navigation_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+.minimize-btn {
+    margin: 0 5px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    cursor: pointer;
+    animation: fade-in 0.5s ease-in-out;
+    background-image: url("icon/door_exit_line_icon.ico");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    padding-left: 30px;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in-out {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* styles.css */
+
+/* 定义橡皮擦大小指示器的样式 */
+.eraser-cursor {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(200, 200, 200, 0.7);
+    border-radius: 50%;
+    border: none;
+}
+
+/* 添加active-tool类的样式，用于高亮显示当前活动的工具按钮 */
+.active-tool {
+    background-color: #007bff; /* 设置高亮颜色为蓝色，你可以根据需要修改 */
+    color: #fff; /* 设置文本颜色为白色 */
+    border: 2px solid #007bff; /* 添加边框 */
+  }
+  
+
