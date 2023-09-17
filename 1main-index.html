@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>极课</title>
     <link rel="stylesheet" type="text/css" href="1main-styles.css">
     <meta charset="UTF-8">
 </head>
+
 <body>
     <div class="main-container">
         <div class="sidebar">
@@ -15,7 +17,7 @@
                 <button class="button-sider-2"></button>
             </div>
             <div class="menu-item" onclick="changeTab(3)">
-                <div class="setting-button" ></div>
+                <div class="setting-button"></div>
             </div>
         </div>
         <div class="content">
@@ -23,13 +25,13 @@
                 <div class="white-page">
 
                     <button class="button-white" onclick="openNewWhite()">
-                    <div class="button-text">新建板书</div>
-                </button>
-                <button class="button-printOn" onclick="printOn()">
-                    <div class="button-text">屏幕书写</div>
-                </button>
+                        <div class="button-text">新建板书</div>
+                    </button>
+                    <button class="button-printOn" onclick="printOn()">
+                        <div class="button-text">屏幕书写/*未适配*/</div>
+                    </button>
                 </div>
-                  
+
             </div>
 
 
@@ -42,40 +44,77 @@
                             <div class="button-text">新建统计</div>
                         </button>
                         <button class="button-excel" onclick="exportToExcel()">
-                            <div class="button-text">导出为Excel</div>
+                            <div class="button-text">导出为Excel/*未适配*/</div>
                         </button>
-                    </div>  
-                 
-                    
+                    </div>
+
+
                     <div class="excel-title">
                         <div class="excel-row">
                             <div class="excel-cell checkbox"></div>
-                            <div class="excel-cell filename">文件名称</div>
-                            <div class="excel-cell created-at">创建时间</div>
+                            <div class="excel-cell filename">文件名称/*未适配*/</div>
+                            <div class="excel-cell created-at">创建时间/*未适配*/</div>
                         </div>
                     </div>
                 </div>
-            </div>          
+            </div>
             <div id="homepage3" class="tab-content">
                 <div class="about-page">
-                    
+
                     <div id="aboutpage" class="aboutpage-content active">
                         <div class="about-header">
                             <h1>关于/About</h1>
                         </div>
-                        <div class="about-content">
-                            <div class="icon-container">
-                                <!-- 添加应用图标 -->
-                                <img src="icon/app_icon.png" alt="App Icon">
-                            </div>
-                            <h1>多云极课</h1>
-                            <div class="version-info">
-                                <p>版本号：1.023.0-Alpha</p>
-                            </div>
-                            <div class="open-source-info">
-                                <p>开源代码使用情况：暂无</p>
+                        <div class="scrollable-container">
+                            <div class="about-content">
+                                <div class="icon-container">
+                                    <!-- 添加应用图标 -->
+                                    <img src="icon/app_icon.png" alt="App Icon">
+                                </div>
+                                <h1>多云极课</h1>
+                                <div class="version-info">
+                                    <h4>版本号：0.0237.1-Alpha</h4>
+                                    <h4>项目地址：<a
+                                            href="https://github.com/MoreYun/OryGeekClass">https://github.com/MoreYun/OryGeekClass</a>
+                                    </h4>
+
+                                </div>
+                                <h4>项目简介</h4>
+                                <div class="project-description">
+                                    <h4>
+
+                                        This is an H5 educational program built on the Electron framework, designed to
+                                        be user-friendly and straightforward. Following the design philosophy of
+                                        "diversity and friendliness," it aims to create a robust and expandable
+                                        application in the future.
+                                    </h4>
+                                    <h4>    
+                                        As we move forward, your input and suggestions will play a crucial role in
+                                        shaping the direction of this application. We're excited to embark on this
+                                        journey of creating a powerful and adaptable H5 educational program that serves
+                                        the needs of many. Stay tuned for updates and new features!
+                                    </h4>
+                                </div>
+                                <div class="open-source-info">
+                                    <h4>开源代码使用情况：
+                                        <h4>
+                                            <div class="image-text-container">
+                                                <!-- 图像 -->
+                                                <img src="icon/logo_text.png" alt="Luckysheet Logo">
+
+                                                <!-- 文本 -->
+                                                <h3>v2.1.13 | Repositories at <a
+                                                        href="https://github.com/dream-num/Luckysheet">https://github.com/dream-num/Luckysheet</a>
+                                                </h3>
+                                            </div>
+
+                                        </h4>
+                                    </h4>
+                                </div>
+                                
                             </div>
                         </div>
+
                     </div>
                     <div id="aboutpage2" class="aboutpage-content">
                         <div class="about-header">
@@ -84,24 +123,25 @@
                         <div class="about-content">
                             <div class="version-info">
                                 <div class="language-switch">
-                                <label class="switch">
-                                  <input type="checkbox" id="toggle">
-                                  <span class="slider round"></span>
-                                </label>
-                                <span>中文</span>
-                                <span>English</span>
-                              </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="toggle">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <span>中文/*未适配*/</span>
+                                    <span>English/*未适配*/</span>
+                                </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
 
-    
-    <script src="1main-script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+        <script src="1main-script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
 </body>
+
 </html>

@@ -17,10 +17,10 @@ const penColorButtons = document.getElementsByClassName('penColor');
 const penSubMenu = document.getElementById('penSubMenu');
 penSubMenu.classList.add('close');
 
-const MAX_REDO_STEPS = 8;
 
 const initialCanvasWidth = 4096;
-const initialCanvasHeight =10240;
+const initialCanvasHeight = 10240;
+
 canvas.width = initialCanvasWidth;
 canvas.height = initialCanvasHeight;
 
@@ -54,10 +54,92 @@ let eraserSize = 10;
 // 全局范围添加lineWidthHistory变量
 let lineWidthHistory = [];
 
+/* 注意这个地方专设计于electron，浏览器调试删去*/
+const { ipcRenderer } = require('electron');
+
+// 获取按钮元素
+
+const eraserSubMenu = document.getElementById('eraserSubMenu');
+
+// 默认情况下激活笔按钮
+penButton.classList.add('button-active');
+
+// 添加笔按钮的点击事件监听器
+penButton.addEventListener('click', () => {
+    // 激活笔按钮
+    penButton.classList.add('button-active');
+    
+    // 移除橡皮擦按钮的活动状态
+    eraserButton.classList.remove('button-active');
+    
+    // 在这里执行与笔工具相关的操作
+});
+
+// 添加橡皮擦按钮的点击事件监听器
+eraserButton.addEventListener('click', () => {
+    // 激活橡皮擦按钮
+    eraserButton.classList.add('button-active');
+    
+    // 移除笔按钮的活动状态
+    penButton.classList.remove('button-active');
+    
+    // 在这里执行与橡皮擦工具相关的操作
+    
+    // 在打开橡皮擦二级界面时，您可以在这里添加逻辑来显示橡皮擦界面
+    eraserSubMenu.style.display = 'block';
+});
+
+// 添加关闭橡皮擦二级界面的逻辑
+function closeEraserSubMenu() {
+    // 隐藏橡皮擦二级界面
+    eraserSubMenu.style.display = 'none';
+    
+    // 激活笔按钮（回到笔工具）
+    penButton.classList.add('button-active');
+    
+    // 移除橡皮擦按钮的活动状态
+    eraserButton.classList.remove('button-active');
+    
+    // 在这里可以添加其他关闭橡皮擦二级界面时的操作
+}
+
+// 在关闭橡皮擦二级界面的按钮或其他元素上添加点击事件监听器，并调用关闭橡皮擦二级界面的函数
 
 document.getElementById('minimize-white-window').addEventListener('click', () => {
     ipcRenderer.send('minimize-white-window');
 });
+
+document.getElementById('closeWindow').addEventListener('click', () => {
+    // 向主进程发送关闭窗口的请求
+    ipcRenderer.send('close-window-request');
+});
+
+const menuButton = document.getElementById('menuButton');
+const menuContainer = document.getElementById('menuContainer');
+
+let isMenuOpen = false;
+
+menuButton.addEventListener('click', toggleMenu);
+
+function toggleMenu() {
+    if (!isMenuOpen) {
+        openMenu();
+    } else {
+        closeMenu();
+    }
+}
+
+function openMenu() {
+    isMenuOpen = true;
+    menuContainer.style.display = 'block';
+}
+
+function closeMenu() {
+    isMenuOpen = false;
+    menuContainer.style.display = 'none';
+}
+
+
 
 // 关闭二级界面的事件监听器
 document.addEventListener('click', (event) => {
@@ -114,8 +196,7 @@ undoButton.addEventListener('click', undo);
 // 监听重做按钮点击事件
 redoButton.addEventListener('click', redo);
 
-// 监听移动画布按钮点击事件
-moveCanvasButton.addEventListener('mousedown', startMovingCanvas);
+
 
 // 监听切换背景颜色按钮点击事件
 toggleBackgroundButton.addEventListener('click', toggleBackgroundColor);
@@ -123,15 +204,21 @@ toggleBackgroundButton.addEventListener('click', toggleBackgroundColor);
 // 监听橡皮擦大小滑块值改变事件
 eraserSizeRange.addEventListener('input', updateEraserSize);
 
+let isDrawingEnabled = false;
+
 // 开始移动画布
 function startMovingCanvas() {
     if (currentTool !== 'move') {
         currentTool = 'move';
         canvas.style.cursor = 'grabbing';
         document.addEventListener('mousedown', startMovingMouse);
+        isDrawingEnabled = false; // 禁用绘制
     }
 }
-
+// 右键点击事件处理程序，防止右键菜单弹出
+function preventContextMenu(e) {
+    e.preventDefault();
+}
 // 开始移动鼠标
 function startMovingMouse(e) {
     if (currentTool === 'move') {
@@ -148,6 +235,11 @@ function stopMovingMouse(e) {
         stopMovingCanvas();
     }
 }
+// 鼠标右键点击事件处理程序，启用移动画布
+canvas.addEventListener('contextmenu', (e) => {
+    e.preventDefault(); // 阻止右键菜单弹出
+    startMovingCanvas();
+});
 
 // 获取触摸位置
 function getTouchPos(evt) {
@@ -160,7 +252,7 @@ function getTouchPos(evt) {
 
 
   
-  let isTwoFingerTouch = false;
+let isTwoFingerTouch = false;
 let isDraggingCanvas = false; // 添加一个标志来控制画布拖动
 
 canvas.addEventListener('touchstart', (e) => {
@@ -210,10 +302,14 @@ canvas.addEventListener('touchmove', (e) => {
         initialTouch1Y = currentTouch1Y;
         initialTouch2X = currentTouch2X;
         initialTouch2Y = currentTouch2Y;
+
+    
     } else if (isDrawing) {
         // 如果处于绘制状态，则调用绘制函数
         draw(e);
     }
+
+    
 });
 
 
@@ -258,13 +354,23 @@ function changeColor(e) {
     currentColor = e.target.style.backgroundColor;
 }
 
-// 更新橡皮擦大小
+eraserSizeRange.addEventListener('input', updateEraserSize);
+
+let currentEraserSize = eraserSize; 
+
 function updateEraserSize() {
-    eraserSize = eraserSizeRange.value;
+    currentEraserSize = eraserSizeRange.value; // 更新橡皮擦大小
     if (currentTool === 'eraser') {
         // 修改橡皮擦的鼠标样式为一个灰白色半透明的圆形指示器
-        canvas.style.cursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${eraserSize}" height="${eraserSize}" viewBox="0 0 ${eraserSize} ${eraserSize}"><circle cx="${eraserSize / 2}" cy="${eraserSize / 2}" r="${eraserSize / 2}" fill="rgba(200, 200, 200, 0.7)" stroke="none"/></svg>') ${eraserSize / 2} ${eraserSize / 2}, auto`;
+        canvas.style.cursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${currentEraserSize}" height="${currentEraserSize}" viewBox="0 0 ${currentEraserSize} ${currentEraserSize}"><circle cx="${currentEraserSize / 2}" cy="${currentEraserSize / 2}" r="${currentEraserSize / 2}" fill="rgba(200, 200, 200, 0.7)" stroke="none"/></svg>') ${currentEraserSize / 2} ${currentEraserSize / 2}, auto`;
     }
+}
+
+// 更新橡皮擦指示器的位置
+function updateEraserIndicator(x, y) {
+    const eraserIndicator = document.getElementById('eraserIndicator');
+    eraserIndicator.style.left = `${x}px`;
+    eraserIndicator.style.top = `${y}px`;
 }
 
 
@@ -417,8 +523,8 @@ function calculateLineOpacity(speed) {
 }
 
 // 绘制
-function draw(e) {
-    if ((isDrawing || isErasing) && !isDraggingCanvas) { // 允许绘制或擦除
+function draw(e,evt) {
+    if ((isDrawingEnabled || isErasing) && !isDraggingCanvas) { // 允许绘制或擦除
         let offsetX, offsetY;
 
         if (e.type === 'mousemove' || e.type === 'mousedown') {
@@ -454,15 +560,25 @@ function draw(e) {
             };
             currentCoordinates.push(step);
         } else if (currentTool === 'eraser') {
+            
             // 使用橡皮擦时清除对应的像素
-            const radius = lineWidth / 2;
-            ctx.clearRect(offsetX - radius, offsetY - radius, lineWidth, lineWidth);
+            const radius = currentEraserSize / 2; // 使用新的橡皮擦大小
+            ctx.globalCompositeOperation = 'destination-out';
+
+            
+            // 绘制一个圆形来清除像素
+            ctx.beginPath();
+            ctx.arc(offsetX, offsetY, radius, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // 恢复合成操作为默认
+            ctx.globalCompositeOperation = 'source-over';
 
             // 保存绘制步骤
             const step = {
                 x: offsetX,
                 y: offsetY,
-                thickness: lineWidth,
+                thickness: currentEraserSize, // 使用新的橡皮擦大小
                 color: canvas.style.backgroundColor,
                 type: 'eraser',
             };
@@ -471,6 +587,8 @@ function draw(e) {
     }
 }
 
+
+
 // 添加事件监听器以在值变化时更新线条粗细
 thicknessRange.addEventListener('input', () => {
     // 获取新的线条粗细值并应用
@@ -478,48 +596,37 @@ thicknessRange.addEventListener('input', () => {
     ctx.lineWidth = newLineWidth;
 });
 
-
 // 监听鼠标和触摸事件
 canvas.addEventListener('mousedown', (e) => {
-    isDrawing = true;
+    isDrawingEnabled = true;
     draw(e);
 });
 
 canvas.addEventListener('mousemove', (e) => {
-    if (isDrawing) {
+    if (isDrawingEnabled) {
         draw(e);
     }
 });
 
 canvas.addEventListener('mouseup', () => {
-    isDrawing = false;
+    isDrawingEnabled = false;
 });
 
 canvas.addEventListener('touchstart', (e) => {
-    isDrawing = true;
+    isDrawingEnabled = true;
     draw(e);
 });
 
 canvas.addEventListener('touchmove', (e) => {
-    if (isDrawing) {
+    if (isDrawingEnabled) {
         draw(e);
     }
 });
 
 canvas.addEventListener('touchend', () => {
-    isDrawing = false;
+    isDrawingEnabled = false;
 });
 
-
-
-
-
-
-
-// 深拷贝绘制步骤数据
-function deepCopySteps(steps) {
-    return JSON.parse(JSON.stringify(steps));
-}
 
 // 停止绘制
 function stopDrawing() {
@@ -542,22 +649,18 @@ function stopDrawing() {
 // 修改undo函数
 function undo() {
     if (history.length > 0) {
-        // 将最近一次绘制步骤数据从历史记录数组弹出并保存到重做历史记录数组（进行深拷贝）
-        redoHistory.push(deepCopySteps(history.pop()));
-
-        // 重新绘制
-        redrawHistory();
+        const undoneSteps = history.pop();
+        redoHistory.push(undoneSteps);
+        redrawHistory(); // 重新绘制历史记录
     }
 }
 
 // 修改redo函数
 function redo() {
     if (redoHistory.length > 0) {
-        // 将重做历史记录数组中最近一次绘制步骤数据弹出并保存到历史记录数组（进行深拷贝）
-        history.push(deepCopySteps(redoHistory.pop()));
-
-        // 重新绘制
-        redrawHistory();
+        const redoneSteps = redoHistory.pop();
+        history.push(redoneSteps);
+        redrawHistory(); // 重新绘制历史记录
     }
 }
 
@@ -595,7 +698,7 @@ function redrawHistory() {
     }
 }
 
-
+const MAX_HISTORY_LENGTH = 10; // 设置历史记录的上限长度
 
 // 开始绘制
 function startDrawing(e) {
@@ -621,67 +724,76 @@ const canvasList = []; // 用于存储画布的数组
 const canvasHistoryList = [];
 
 
-// 保存当前画布内容到canvasList数组中
 function saveCanvas() {
-  if (currentCanvasIndex !== -1) {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const copiedImageData = new ImageData(new Uint8ClampedArray(imageData.data), imageData.width, imageData.height);
-    canvasList[currentCanvasIndex] = copiedImageData;
-  }
+    if (currentCanvasIndex !== -1) {
+        ctx.canvas.willReadFrequently = true; // 设置属性为true
+
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        canvasList[currentCanvasIndex] = imageData;
+
+        // 如果历史记录长度超过上限，删除最早的历史记录
+        if (history.length > MAX_HISTORY_LENGTH) {
+            history.shift();
+        }
+
+        ctx.canvas.willReadFrequently = false; // 恢复属性为false
+    }
 }
+
 
 // 将canvasList数组中指定索引的画布内容绘制到当前画布上
 function drawCurrentCanvas() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const imageData = canvasList[currentCanvasIndex];
-  ctx.putImageData(imageData, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const imageData = canvasList[currentCanvasIndex];
+    ctx.putImageData(imageData, 0, 0);
 }
 
-// 切换到前一个画布
+// 修改switchToPreviousCanvas函数
 function switchToPreviousCanvas() {
     if (currentCanvasIndex > 0 || canvasList.length <= 1) {
-      saveCanvas();
-      canvasHistoryList[currentCanvasIndex] = {history: deepCopySteps(history), redoHistory: deepCopySteps(redoHistory)};
-      currentCanvasIndex--;
-      if (currentCanvasIndex < 0) {
-        currentCanvasIndex = canvasList.length - 1; // 切换到最后一个画布
-      }
-      drawCurrentCanvas();
-      if (canvasHistoryList[currentCanvasIndex]) {
-        history = deepCopySteps(canvasHistoryList[currentCanvasIndex].history);
-        redoHistory = deepCopySteps(canvasHistoryList[currentCanvasIndex].redoHistory);
-      } else {
-        history = [];
-        redoHistory = [];
-      }
+        saveCanvas();
+        canvasHistoryList[currentCanvasIndex] = { history, redoHistory };
+        currentCanvasIndex--;
+        if (currentCanvasIndex < 0) {
+            currentCanvasIndex = canvasList.length - 1; // 切换到最后一个画布
+        }
+        drawCurrentCanvas();
+        if (canvasHistoryList[currentCanvasIndex]) {
+            history = canvasHistoryList[currentCanvasIndex].history;
+            redoHistory = canvasHistoryList[currentCanvasIndex].redoHistory;
+        } else {
+            history = [];
+            redoHistory = [];
+        }
     }
-  }
+}
 
-// 切换到后一个画布，如果当前已经是最后一个画布则新建一个画布
+// 修改switchToNextCanvas函数
 function switchToNextCanvas() {
     if (currentCanvasIndex < canvasList.length - 1) {
-      saveCanvas();
-      canvasHistoryList[currentCanvasIndex] = {history: deepCopySteps(history), redoHistory: deepCopySteps(redoHistory)};
-      currentCanvasIndex++;
-      drawCurrentCanvas();
-      if (canvasHistoryList[currentCanvasIndex]) {
-        history = deepCopySteps(canvasHistoryList[currentCanvasIndex].history);
-        redoHistory = deepCopySteps(canvasHistoryList[currentCanvasIndex].redoHistory);
-      } else {
+        saveCanvas();
+        canvasHistoryList[currentCanvasIndex] = { history, redoHistory };
+        currentCanvasIndex++;
+        drawCurrentCanvas();
+        if (canvasHistoryList[currentCanvasIndex]) {
+            history = canvasHistoryList[currentCanvasIndex].history;
+            redoHistory = canvasHistoryList[currentCanvasIndex].redoHistory;
+        } else {
+            history = [];
+            redoHistory = [];
+        }
+    } else {
+        saveCanvas();
+        canvasHistoryList[currentCanvasIndex] = { history, redoHistory };
+        const newCanvas = ctx.createImageData(canvas.width, canvas.height);
+        canvasList.push(newCanvas);
+        currentCanvasIndex = canvasList.length - 1;
+        drawCurrentCanvas();
         history = [];
         redoHistory = [];
-      }
-    } else {
-      saveCanvas();
-      canvasHistoryList[currentCanvasIndex] = {history: deepCopySteps(history), redoHistory: deepCopySteps(redoHistory)};
-      const newCanvas = ctx.createImageData(canvas.width, canvas.height);
-      canvasList.push(newCanvas);
-      currentCanvasIndex = canvasList.length - 1;
-      drawCurrentCanvas();
-      history = [];
-      redoHistory = [];
     }
-  }
+}
+
 
 // 绑定向左按钮点击事件
 const leftButton = document.getElementById("leftButton");
@@ -696,6 +808,8 @@ const defaultImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 canvasList.push(defaultImageData);
 currentCanvasIndex = 0;
 drawCurrentCanvas();
+
+
 
 
 // 初始化

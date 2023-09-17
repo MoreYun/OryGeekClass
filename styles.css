@@ -22,6 +22,7 @@ body {
     border: 1px solid black;
     cursor: crosshair;
     position: fixed;
+    transform: translateZ(0);
 }
 
 /* 控制条样式 */
@@ -48,6 +49,29 @@ body {
     animation: fade-in-out 0.5s ease-in-out;
 }
 
+.button {
+    transition: transform 0.3s ease-in-out; /* 添加按钮的缩放过渡效果 */
+}
+
+.button-active {
+    transform: scale(1.2); /* 将被激活的按钮放大为 1.2 倍大小 */
+}
+
+.button-active + .button {
+    transform: scale(0.8); /* 将相邻的按钮缩小为 0.8 倍大小 */
+}
+
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+
 .tool-button {
     margin: 0 5px;
     width: 60px;
@@ -61,13 +85,13 @@ body {
     transition: background-color 0.3s ease;
 }
 
-    .tool-button:hover {
-        background-color: #0056b3;
-    }
+.tool-button:hover {
+    background-color: #0056b3;
+}
 
-    .tool-button:active {
-        background-color: #003d80;
-    }
+.tool-button:active {
+    background-color: #003d80;
+}
 
 #tools-container2 {
     position: fixed;
@@ -198,50 +222,50 @@ button.penColor {
     animation: fade-in-down 0.5s ease-in-out;
 }
 
-    #penSubMenu.open {
-        display: block;
-    }
+#penSubMenu.open {
+    display: block;
+}
 
 .slider {
     width: 100%;
     margin-bottom: 20px;
 }
 
-    .slider input[type="range"] {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 10px;
-        border-radius: 5px;
-        background: #ddd;
-        outline: none;
-        opacity: 0.7;
-        -webkit-transition: opacity 0.2s;
-        transition: opacity 0.2s;
-    }
+.slider input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background: #ddd;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+}
 
-        .slider input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #007bff;
-            cursor: pointer;
-        }
+.slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+}
 
-        .slider input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border: none;
-            border-radius: 50%;
-            background: #007bff;
-            cursor: pointer;
-        }
+.slider input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+}
 
-        .slider input[type="range"]:focus {
-            outline: none;
-            opacity: 1;
-        }
+.slider input[type="range"]:focus {
+    outline: none;
+    opacity: 1;
+}
 
 #eraserButton {
     margin: 0 5px;
@@ -322,7 +346,7 @@ button#clearCanvasButton {
     padding-left: 30px;
 }
 
-.moveButton {
+.selectButton {
     margin: 0 5px;
     width: 60px;
     height: 30px;
@@ -331,7 +355,7 @@ button#clearCanvasButton {
     background-color: #e7ecef;
     cursor: pointer;
     animation: fade-in 0.5s ease-in-out;
-    background-image: url("icon/move_icon.ico");
+    background-image: url("icon/border_filled_icon.ico");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
@@ -386,6 +410,71 @@ button#clearCanvasButton {
     padding-left: 30px;
 }
 
+.menuContainer {
+    display: none; /* 默认关闭 */
+    flex-direction: column; /* 设置为垂直排列 */
+    align-items: flex-start; /* 文字横向对齐图标 */
+    position: absolute;
+    bottom: 110%;
+    right: 10%;
+    transform: translateX(50%);
+    width: 150px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+    animation: fade-in-down 0.5s ease-in-out, scaleUp 0.3s ease-in-out;
+}
+
+
+.menuButton_close {
+    margin: 0 0 5px; /* 垂直间距，可以根据需要调整 */
+    width: 150px; /* 按钮宽度，可以根据需要调整 */
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    background-image: url("icon/exit_line_icon.ico");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 30px;
+    animation: fade-in 0.5s ease-in-out;
+    display: flex; /* 让图标和文字横向排列 */
+    align-items: center; /* 文字和图标垂直居中对齐 */
+    padding-left: 40px; /* 调整文字和图标的距离 */
+}
+.menuButton_tools {
+    margin: 0 0 5px; /* 垂直间距，可以根据需要调整 */
+    width: 150px; /* 按钮宽度，可以根据需要调整 */
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    background-image: url("icon/tool_blending_icon.ico");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 30px;
+    animation: fade-in 0.5s ease-in-out;
+    display: flex; /* 让图标和文字横向排列 */
+    align-items: center; /* 文字和图标垂直居中对齐 */
+    padding-left: 40px; /* 调整文字和图标的距离 */
+}.menuButton_settings {
+    margin: 0 0 5px; /* 垂直间距，可以根据需要调整 */
+    width: 150px; /* 按钮宽度，可以根据需要调整 */
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #e7ecef;
+    background-image: url("icon/setting_tool_tools_icon.ico");
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 30px;
+    animation: fade-in 0.5s ease-in-out;
+    display: flex; /* 让图标和文字横向排列 */
+    align-items: center; /* 文字和图标垂直居中对齐 */
+    padding-left: 40px; /* 调整文字和图标的距离 */
+}
 .minimize-btn {
     margin: 0 5px;
     width: 30px;
@@ -395,7 +484,7 @@ button#clearCanvasButton {
     background-color: #e7ecef;
     cursor: pointer;
     animation: fade-in 0.5s ease-in-out;
-    background-image: url("icon/door_exit_line_icon.ico");
+    background-image: url("icon/minimize_reduce_shrink_screen_display_icon.ico");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
@@ -432,12 +521,4 @@ button#clearCanvasButton {
     border-radius: 50%;
     border: none;
 }
-
-/* 添加active-tool类的样式，用于高亮显示当前活动的工具按钮 */
-.active-tool {
-    background-color: #007bff; /* 设置高亮颜色为蓝色，你可以根据需要修改 */
-    color: #fff; /* 设置文本颜色为白色 */
-    border: 2px solid #007bff; /* 添加边框 */
-  }
-  
 

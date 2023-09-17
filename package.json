@@ -1,0 +1,57 @@
+{
+  "name": "OryGeekClass",
+  "version": "0.0237.1-Alpha",
+  "description": "Build for geekclass",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "electronBuilder": {
+    "outputFile": "setup.exe",
+    "packager": {
+      "asar": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "download": {
+      "mirrorOptions": {
+        "mirror": "https://npm.taobao.org/mirrors/electron-builder-binaries/"
+      }
+    }
+  },
+  "author": "Moorey",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^26.2.1"
+  },
+  "build": {
+    "appId": "com.ory.geekclass",
+    "productName": "极课",
+    "directories": {
+      "output": "dist_build duo"
+    }
+  },
+  "files": [
+    "main.js",
+    "1main-index.html",
+    "1main-styles.css",
+    "1main-script.js",
+    "white.html",
+    "styles.css",
+    "script.js",
+    "background/**/*",
+    "icon/**/*",
+    "!**/node_modules/**/*",
+    "excel/**/*"
+  ],
+  "dependencies": {
+    "element-ui": "^2.15.14",
+    "luckyexcel": "^1.0.1",
+    "vue": "^3.3.4"
+  }
+}

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>极课白板书写 V0.0237.1-Alpha</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
     <div id="whiteboard">
         <canvas id="canvas"></canvas>
     </div>
     <div id="controls">
         <div id="tools-container">
-            <button class="tool-button" id="penButton"></button>
-            <div class="dropdown-content" id="penMenu">
+            <button class="tool-button" id="penButton" id=".button"></button>
+            <div class="dropdown-content" id="penMenu" >
                 <div id="penSubMenu">
                     <div class="slider">
                         <input type="range" id="thicknessRange" min="1" max="10" step="1">
@@ -28,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <button class="tool-button" id="eraserButton"></button>
+            <button class="tool-button" id="eraserButton" id=".button"></button>
             <div id="eraserDropdown">
                 <div id="eraserSubMenu" class="eraserSubMenu">
                     <div class="slider">
@@ -37,37 +39,46 @@
                     <button id="clearCanvasButton">清除</button>
                 </div>
             </div>
-            <button class="undoButton" id="undo"></button>
-            <button class="redoButton" id="redo"></button>
-            <button class="moveButton" id="moveCanvasButton"></button>
+            <button class="undoButton" id="undo" id=".button"></button>
+            <button class="redoButton" id="redo" id=".button"></button>
+            <button class="selectButton" id="select" id=".button"></button>
 
         </div>
         <div id="tools-container2">
             <button id="leftButton" class="leftButton"></button>
-            <button id="toggleBackground"class="toggleBackground"></button>
-            <button id="canvasList"class="canvasList"></button>
-            
+            <button id="toggleBackground" class="toggleBackground"></button>
+            <button id="canvasList" class="canvasList"></button>
+
             <button id="rightButton" class="rightButton"></button>
         </div>
         <div id="tools-container3">
             <button id="menuButton" class="menuButton"></button>
-            <button id="minimize-white-window"class="minimize-btn"></button>
-          
+            <div id="menuContainer" class="menuContainer">
+                <h3>极课白板书写 0.0237.1-Alpha<h5>Build for open source</h3>
+                <button id="detailedsetting" class="menuButton_settings">细分设置</button>
+                <button id="toolsbar" class="menuButton_tools">白板工具</button>
+                <button id="closeWindow" class="menuButton_close">退出白板</button>
+
+
+            </div>
+            <button id="minimize-white-window" class="minimize-btn"></button>
+
         </div>
         <div id="tools-container4">
             <div id="penColors-right">
                 <button class="penColor" style="background-color: black;"></button>
                 <button class="penColor" style="background-color: white;"></button>
                 <button class="penColor" style="background-color: red;"></button>
-                <button class="penColor" style="background-color: blue;"></button>
+                <button class="penColor" style="background-color: rgb(38, 0, 255);"></button>
                 <button class="penColor" style="background-color: forestgreen;"></button>
-                
+
             </div>
-          
+
         </div>
 
-        
+
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>
