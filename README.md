@@ -12,8 +12,4 @@ In the future, we plan to add various features and enhancements to make it even 
 
 As we move forward, your input and suggestions will play a crucial role in shaping the direction of this application. We're excited to embark on this journey of creating a powerful and adaptable H5 educational program that serves the needs of many. Stay tuned for updates and new features!
 
-## 0.0237.1-Alpha
-### 2023/9/16 Upload
-### Only whiteboard works on this version. 
-### Load "white.html," "script.js," and "styles.css" to use whiteboard. 
 For more features, we will keep uploading.
